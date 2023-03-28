@@ -29,7 +29,7 @@ page = st.sidebar.selectbox('Select page',
     "Interactive map"])
 
 
-df = pd.read_csv('df_to_plot_dashboard.csv', index_col = 0)
+df = pd.read_csv('reduced_data_to_plot.csv', index_col = 0)
 
 
 ######################################### DEFINE THE CHARTS #####################################################################
