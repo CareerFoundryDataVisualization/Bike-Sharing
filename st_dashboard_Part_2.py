@@ -29,10 +29,10 @@ page = st.sidebar.selectbox('Select page',
 dropbox_url = "https://www.dropbox.com/s/ms9t7qx5spi9pof/reduced_data_to_plot.csv?dl=0"
 # df = pd.read_csv('df_to_plot_dashboard.csv', index_col = 0)
 
-@st.cache_data(ttl=600)
-def load_data(sheets_url):
-    csv_url = sheets_url.replace("/edit#gid=", "/export?format=csv&gid=")
-    return pd.read_csv(csv_url)
+# @st.cache_data(ttl=600)
+# def load_data(sheets_url):
+#     csv_url = sheets_url.replace("/edit#gid=", "/export?format=csv&gid=")
+#     return pd.read_csv(csv_url)
 
 df = load_data(st.secrets["dropbox_url"])
 
