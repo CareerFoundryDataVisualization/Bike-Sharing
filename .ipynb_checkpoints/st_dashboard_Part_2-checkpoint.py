@@ -34,7 +34,7 @@ dropbox_url = "https://www.dropbox.com/s/ms9t7qx5spi9pof/reduced_data_to_plot.cs
 #     csv_url = sheets_url.replace("/edit#gid=", "/export?format=csv&gid=")
 #     return pd.read_csv(csv_url)
 
-df = load_data(st.secrets["dropbox_url"])
+df = read_csv(st.secrets["dropbox_url"])
 
 
 ######################################### DEFINE THE CHARTS #####################################################################
