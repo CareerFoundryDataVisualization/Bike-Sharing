@@ -24,11 +24,7 @@ st.markdown("Right now, Divvy bikes runs into a situation where customers compla
 df = pd.read_csv('reduced_data_to_plot.csv', index_col = 0)
 
 
-<<<<<<< HEAD
 # ######################################### DEFINE THE CHARTS #####################################################################
-=======
-df = pd.read_csv('reduced_data_to_plot.csv', index_col = 0)
->>>>>>> 80398b0262a5ba0890438652ede7d5c1b301b463
 
 
 ## Groupby
