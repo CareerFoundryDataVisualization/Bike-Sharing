@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 from streamlit_keplergl import keplergl_static
 from keplergl import KeplerGl
 from datetime import datetime as dt
-
-
+import dropbox
+from dropbox.exceptions import AuthError
 
 
 ########################### Initial settings for the dashboard ####################################################
@@ -26,7 +26,33 @@ page = st.sidebar.selectbox('Select page',
     "Weather component and bike usage",
     "Interactive map"])
 
+DROPBOX_ACCESS_TOKEN = 'gyqy3sl5f2zjvd5'
+
+
+def dropbox_connect():
+    """Create a connection to Dropbox."""
+
+    try:
+        dbx = dropbox.Dropbox(DROPBOX_ACCESS_TOKEN)
+    except AuthError as e:
+        print('Error connecting to Dropbox with access token: ' + str(e))
+    return dbx
+
+
 dropbox_url = "https://www.dropbox.com/s/ms9t7qx5spi9pof/reduced_data_to_plot.csv?dl=0"
+
+def dropbox_download_file(dropbox_file_path, local_file_path):
+    """Download a file from Dropbox to the local machine."""
+
+    try:
+        dbx = dropbox_connect()
+
+        with open(local_file_path, 'wb') as f:
+            metadata, result = dbx.files_download(path=dropbox_file_path)
+            f.write(result.content)
+    except Exception as e:
+        print('Error downloading file from Dropbox: ' + str(e))
+
 # df = pd.read_csv('df_to_plot_dashboard.csv', index_col = 0)
 
 # @st.cache_data(ttl=600)
