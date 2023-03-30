@@ -53,7 +53,7 @@ page = st.sidebar.selectbox('Select a page',
 #     except Exception as e:
 #         print('Error downloading file from Dropbox: ' + str(e))
 
-df = pd.read_csv('Bike_shating/reduced_data_to_plot_7.csv', index_col = 0)
+df = pd.read_csv('Bike_sharing/reduced_data_to_plot_7.csv', index_col = 0)
 
 # @st.cache_data(ttl=600)
 # def load_data(sheets_url):
