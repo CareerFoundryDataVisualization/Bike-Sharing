@@ -77,14 +77,14 @@ if page == 'Most popular stations':
     top20 = df_groupby_bar.nlargest(20, 'value')
     fig = go.Figure(go.Bar(x = top20['start_station_name'], y = top20['value']))
 
-    fig = go.Figure(go.Bar(x = top20['start_station_name'], y = top20['value'], marker={'color': top20['value'],'colorscale': 'Blues'}))
-fig.update_layout(
-    title = 'Top 20 most popular bike stations in Chicago',
-    xaxis_title = 'Start stations',
-    yaxis_title ='Sum of trips',
-    width = 900, height = 600
-)
-st.plotly_chart(fig, use_container_width=True)
+        fig = go.Figure(go.Bar(x = top20['start_station_name'], y = top20['value'], marker={'color':top20['value'],'colorscale': 'Blues'}))
+    fig.update_layout(
+        title = 'Top 20 most popular bike stations in Chicago',
+        xaxis_title = 'Start stations',
+        yaxis_title ='Sum of trips',
+        width = 900, height = 600
+    )
+    st.plotly_chart(fig, use_container_width=True)
 
 elif page == 'Weather component and bike usage':
 
