@@ -78,7 +78,7 @@ if page == 'Most popular stations':
     fig = go.Figure(go.Bar(x = top20['start_station_name'], y = top20['value']))
 
     fig = go.Figure(go.Bar(x = top20['start_station_name'], y = top20['value'], marker={'color':top20['value'],'colorscale': 'Blues'}))
-fig.update_layout(
+    fig.update_layout(
     title = 'Top 20 most popular bike stations in Chicago',
     xaxis_title = 'Start stations',
     yaxis_title ='Sum of trips',
@@ -103,8 +103,8 @@ elif page == 'Weather component and bike usage':
     )
 
     fig_2.update_layout(
-        title = 'Daily bike trips and temperatures in 2018',
-        height = 600
+    title = 'Daily bike trips and temperatures in 2018',
+    height = 600
     )
 
     st.plotly_chart(fig_2, use_container_width=True)
