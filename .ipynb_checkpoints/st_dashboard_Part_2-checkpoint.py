@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 from streamlit_keplergl import keplergl_static
 from keplergl import KeplerGl
 from datetime import datetime as dt
-import dropbox
-from dropbox.exceptions import AuthError
+# import dropbox
+# from dropbox.exceptions import AuthError
 
 
 ########################### Initial settings for the dashboard ####################################################
