@@ -77,29 +77,37 @@ if page == 'Most popular stations':
     top20 = df_groupby_bar.nlargest(20, 'value')
     fig = go.Figure(go.Bar(x = top20['start_station_name'], y = top20['value']))
 
-    fig.update_layout(
-        title = 'Most popular stations',
-        xaxis_title = 'Start stations',
-        yaxis_title='Sum of trips'
-    )
-    st.plotly_chart(fig, use_container_width=True)
+    fig = go.Figure(go.Bar(x = top20['start_station_name'], y = top20['value'], marker={'color': top20['value'],'colorscale': 'Blues'}))
+fig.update_layout(
+    title = 'Top 20 most popular bike stations in Chicago',
+    xaxis_title = 'Start stations',
+    yaxis_title ='Sum of trips',
+    width = 900, height = 600
+)
+st.plotly_chart(fig, use_container_width=True)
 
 elif page == 'Weather component and bike usage':
 
     ### Create the dual axis line chart ###
 
-    fig = make_subplots(specs = [[{"secondary_y": True}]])
+    fig_2 = make_subplots(specs = [[{"secondary_y": True}]])
 
-    fig.add_trace(
-    go.Scatter(x = df['date'], y = df['bike_rides_daily'], name = 'Daily bike rides'),
+    fig_2.add_trace(
+    go.Scatter(x = df['date'], y = df['bike_rides_daily'], name = 'Daily bike rides', marker={'color': df['bike_rides_daily'],'color': 'blue'}),
     secondary_y = False
     )
 
-    fig.add_trace(
-    go.Scatter(x=df['date'], y = df['avgTemp'], name = 'Daily temperature'),
+    fig_2.add_trace(
+    go.Scatter(x=df['date'], y = df['avgTemp'], name = 'Daily temperature', marker={'color': df['avgTemp'],'color': 'red'}),
     secondary_y=True
     )
-    st.plotly_chart(fig, use_container_width=True)
+
+    fig_2.update_layout(
+        title = 'Daily bike trips and temperatures in 2018',
+        height = 600
+    )
+
+    st.plotly_chart(fig_2, use_container_width=True)
 
 
 else: 
