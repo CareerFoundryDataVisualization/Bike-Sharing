@@ -85,23 +85,7 @@ elif page == 'Most popular stations':
         else "fall"
         for month in df['month']
     ]
-    
-    
-    # Bar chart
-
-    df['value'] = 1 
-    df_groupby_bar = df.groupby('start_station_name', as_index = False).agg({'value': 'sum'})
-    top20 = df_groupby_bar.nlargest(20, 'value')
-    fig = go.Figure(go.Bar(x = top20['start_station_name'], y = top20['value']))
-
-    fig = go.Figure(go.Bar(x = top20['start_station_name'], y = top20['value'], marker={'color':top20['value'],'colorscale': 'Blues'}))
-    fig.update_layout(
-    title = 'Top 20 most popular bike stations in Chicago',
-    xaxis_title = 'Start stations',
-    yaxis_title ='Sum of trips',
-    width = 900, height = 600
-    )
-    
+  
     # Create the filter on the side bar
     
     with st.sidebar:
@@ -113,6 +97,22 @@ elif page == 'Most popular stations':
 
     total1 = st.columns(1,gap='large')
     st.metric(label = 'Total Bike Rides', value= numerize(total_rides))
+    
+    # Bar chart
+
+    df1['value'] = 1 
+    df_groupby_bar = df1.groupby('start_station_name', as_index = False).agg({'value': 'sum'})
+    top20 = df_groupby_bar.nlargest(20, 'value')
+    fig = go.Figure(go.Bar(x = top20['start_station_name'], y = top20['value']))
+
+    fig = go.Figure(go.Bar(x = top20['start_station_name'], y = top20['value'], marker={'color':top20['value'],'colorscale': 'Blues'}))
+    fig.update_layout(
+    title = 'Top 20 most popular bike stations in Chicago',
+    xaxis_title = 'Start stations',
+    yaxis_title ='Sum of trips',
+    width = 900, height = 600
+    )
+    
     
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("From the bar chart it is clear that there are some start stations that are more popular than others - in the top 3 we can see Streeter Drive/Grand Avenue, Canal Street/Adams Streat as well as Clinton Street/Madison Street. There is a big jump between the highest and lowest bars of the plot, indicating some clear preferences for the leading stations. This is a finding that we could cross reference with the interactive map that you can access through the side bar select box.")
