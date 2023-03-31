@@ -92,10 +92,10 @@ elif page == 'Most popular stations':
         season_filter = st.multiselect(label= 'Select the season', options=df['season'].unique(),
     default=df['season'].unique())
 
-    df1 = df.query('season == @season_filter')    
-    total_rides = float(df1['bike_rides_daily'].sum())    
-
-    total1 = st.columns(1,gap='large')
+    df1 = df.query('season == @season_filter')
+    
+    total_rides = float(df1['bike_rides_daily'].count())    
+    total1 = st.columns(1,gap = 'large')
     st.metric(label = 'Total Bike Rides', value= numerize(total_rides))
     
     # Bar chart
