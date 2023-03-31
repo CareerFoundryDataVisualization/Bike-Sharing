@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from streamlit_keplergl import keplergl_static
 from keplergl import KeplerGl
 from datetime import datetime as dt
+from numerize.numerize import numerize
 from PIL import Image
 
 ########################### Initial settings for the dashboard ####################################################
