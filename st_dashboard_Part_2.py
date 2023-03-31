@@ -15,30 +15,23 @@ from PIL import Image
 
 st.set_page_config(page_title = 'Divvy Bikes Strategy Dashboard', layout='wide')
 st.title("Divvy Bikes Strategy Dashboard")
-st.sidebar.title("Aspect Selector")
 
+# Define side bar
+st.sidebar.title("Aspect Selector")
 page = st.sidebar.selectbox('Select an aspect of the analysis',
   ["Intro page","Most popular stations",
     "Weather component and bike usage",
     "Interactive map with aggregated bike trips", "Recommendations"])
 
-
+# Import data
 df = pd.read_csv('reduced_data_to_plot_7.csv', index_col = 0)
-df['date'] = pd.to_datetime(df['date'], format = '%Y-%m-%d')
-df['month'] = df['date'].dt.month
-df['month'] = df['month'].astype('int')
-df['season'] = [
-    "winter" if (month == 12 or 1 <= month <= 4)
-    else "spring" if (4 < month <= 5)
-    else "summer" if (6 <= month <= 9)
-    else "fall"
-    for month in df['month']
-]
 
 
+######################################### DEFINE THE PAGES #####################################################################
 
-# st.dataframe(df1)
-######################################### DEFINE THE CHARTS #####################################################################
+
+# Intro page
+
 if page == "Intro page":
     st.markdown("#### This dashboard aims at providing helpful insights on the expansion problems Divvy Bikes currently faces.")
     st.markdown("Right now, Divvy bikes runs into a situation where customers complain about bikes not being available at certain times. This analysis will look at the potential reasons behind this. The dashboard is separated into 4 sections:")
@@ -53,9 +46,27 @@ if page == "Intro page":
     st.image(myImage)#, caption='Enter any caption here')
 
 
+# Most popular stations page
+
+
+
+    
+    
 ## Create the season fiter
 
 elif page == 'Most popular stations':
+    
+    df['date'] = pd.to_datetime(df['date'], format = '%Y-%m-%d')
+    df['month'] = df['date'].dt.month
+    df['month'] = df['month'].astype('int')
+    df['season'] = [
+        "winter" if (month == 12 or 1 <= month <= 4)
+        else "spring" if (4 < month <= 5)
+        else "summer" if (6 <= month <= 9)
+        else "fall"
+        for month in df['month']
+    ]
+    
     with st.sidebar:
         season_filter = st.multiselect(label= 'Select the season', options=df['season'].unique(),
     default=df['season'].unique())
