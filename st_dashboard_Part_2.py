@@ -21,7 +21,7 @@ st.sidebar.title("Aspect Selector")
 page = st.sidebar.selectbox('Select a page',
   ["Intro page","Most popular stations",
     "Weather component and bike usage",
-    "Interactive map", "Recommendations"])
+    "Interactive map with aggregated bike trips", "Recommendations"])
 
 
 df = pd.read_csv('reduced_data_to_plot_7.csv', index_col = 0)
@@ -104,7 +104,7 @@ elif page == 'Weather component and bike usage':
     st.markdown("There is an obvious correlation between the rise and drop of temperatures and their effect on the frequency of bike trips taken daily. As temperatures plunge, so does bike usage. This insight indicates that the shortage problem may be prevalent merely in the warmer months, approximately from May to November.")
 
 
-elif: 
+elif page == 'Interactive map with aggregated bike trips': 
 
     ### Create the map ###
 
