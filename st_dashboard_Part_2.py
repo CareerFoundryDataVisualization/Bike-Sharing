@@ -112,8 +112,6 @@ elif page == 'Most popular stations':
     yaxis_title ='Sum of trips',
     width = 900, height = 600
     )
-    
-    
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("From the bar chart it is clear that there are some start stations that are more popular than others - in the top 3 we can see Streeter Drive/Grand Avenue, Canal Street/Adams Streat as well as Clinton Street/Madison Street. There is a big jump between the highest and lowest bars of the plot, indicating some clear preferences for the leading stations. This is a finding that we could cross reference with the interactive map that you can access through the side bar select box.")
 
