@@ -7,8 +7,9 @@ import matplotlib.pyplot as plt
 from streamlit_keplergl import keplergl_static
 from keplergl import KeplerGl
 from datetime import datetime as dt
-from numerize.numerize import numerize
-from PIL import Image
+# import dropbox
+# from dropbox.exceptions import AuthError
+
 
 ########################### Initial settings for the dashboard ####################################################
 
@@ -20,46 +21,53 @@ st.markdown("Right now, Divvy bikes runs into a situation where customers compla
 st.sidebar.title("Aspect Selector")
 # st.sidebar.markdown("Select an aspect of the analysis:")
 
+
 page = st.sidebar.selectbox('Select a page',
-  ["Intro page","Most popular stations",
+  ["Most popular stations",
     "Weather component and bike usage",
     "Interactive map"])
 
+# DROPBOX_ACCESS_TOKEN = 'gyqy3sl5f2zjvd5'
+
+
+# def dropbox_connect():
+#     """Create a connection to Dropbox."""
+
+#     try:
+#         dbx = dropbox.Dropbox(DROPBOX_ACCESS_TOKEN)
+#     except AuthError as e:
+#         print('Error connecting to Dropbox with access token: ' + str(e))
+#     return dbx
+
+
+# dropbox_url = "https://www.dropbox.com/s/ms9t7qx5spi9pof/reduced_data_to_plot.csv?dl=0"
+
+# def dropbox_download_file(dropbox_file_path, local_file_path):
+#     """Download a file from Dropbox to the local machine."""
+
+#     try:
+#         dbx = dropbox_connect()
+
+#         with open(local_file_path, 'wb') as f:
+#             metadata, result = dbx.files_download(path=dropbox_file_path)
+#             f.write(result.content)
+#     except Exception as e:
+#         print('Error downloading file from Dropbox: ' + str(e))
 
 df = pd.read_csv('reduced_data_to_plot_7.csv', index_col = 0)
-df['date'] = pd.to_datetime(df['date'], format = '%Y-%m-%d')
-df['month'] = df['date'].dt.month
-df['month'] = df['month'].astype('int')
-df['season'] = [
-    "winter" if (month == 12 or 1 <= month <= 4)
-    else "spring" if (4 < month <= 5)
-    else "summer" if (6 <= month <= 9)
-    else "fall"
-    for month in df['month']
-]
+
+# @st.cache_data(ttl=600)
+# def load_data(sheets_url):
+#     csv_url = sheets_url.replace("/edit#gid=", "/export?format=csv&gid=")
+#     return pd.read_csv(csv_url)
+
+# df = pd.read_csv(st.secrets["dropbox_url"])
 
 
-
-# st.dataframe(df1)
 ######################################### DEFINE THE CHARTS #####################################################################
-if page == "Intro page":
-    myImage = Image.open("Bike-Sharing\Divvy_Bikes.jpg")
-    myImage.show()    
-    st.image(myImage)#, caption='Enter any caption here')
 
 
 ## Create the bar chart
-
-with st.sidebar:
-    season_filter = st.multiselect(label= 'Select the season',
-                                options=df['season'].unique(),
-                                default=df['season'].unique())
-
-df1 = df.query('season == @season_filter')    
-total_rides = float(df1['bike_rides_daily'].sum())    
-               
-total1 = st.columns(1,gap='large')
-st.metric(label = 'Total Bike Rides', value= numerize(total_rides))
 
 if page == 'Most popular stations':
 
