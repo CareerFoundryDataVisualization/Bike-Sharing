@@ -2,4 +2,4 @@ plotly == 5.13.0
 streamlit == 1.20.0
 matplotlib == 3.7.1
 streamlit_keplergl
-numerize
+numerize == 0.12
