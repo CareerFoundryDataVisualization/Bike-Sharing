@@ -119,12 +119,14 @@ elif page == 'Interactive map with aggregated bike trips':
     ## Show in webpage
     st.header("Aggregated Bike Trips in Chicago")
     st.components.v1.html(html_data,height=1000)
-    st.markdown("Using the filter on the left hand side of the map we can check whether the most popular start stations also appear in the most popular trips. The most popular start stations are: Streeter Dr/Grand Avenue, Canal Street/Adams Street as well as Clinton Street/Madison Street. While having the aggregated bike trips filter enabled, we can see that even though Clinton Street/Madison Street is a popular start stations, it doesn't account for the most commonly taken trips. The most common routes (>2,000) are between Theater on the Lake, Streeter Dr/Grand Avenue, Millenium Park, Columbus Dr/Randolph Street, Shedd Aquarium, Michigan Avenue/Oak Street, Canal Street/Adams Street.")
+    st.markdown("#### Using the filter on the left hand side of the map we can check whether the most popular start stations also appear in the most popular trips.)
+    st.markdown("The most popular start stations are:")
+    st.markdown("Streeter Dr/Grand Avenue, Canal Street/Adams Street as well as Clinton Street/Madison Street. While having the aggregated bike trips filter enabled, we can see that even though Clinton Street/Madison Street is a popular start stations, it doesn't account for the most commonly taken trips. The most common routes (>2,000) are between Theater on the Lake, Streeter Dr/Grand Avenue, Millenium Park, Columbus Dr/Randolph Street, Shedd Aquarium, Michigan Avenue/Oak Street, Canal Street/Adams Street.")
 
 else:
     st.header("Conclusions and recommendations")
     bikes = Image.open("recs_page.png")  #source: Midjourney
     st.image(bikes)
-    st.markdown("## Our analysis has shown that Divvy Bikes needs to focus on the following points:")
+    st.markdown("### Our analysis has shown that Divvy Bikes needs to focus on the following points:")
     st.markdown("- Add more stations to the locations around the water line, such as heater on the Lake, Streeter Dr/Grand Avenue, Millenium Park, Columbus Dr/Randolph Street, Shedd Aquarium, Michigan Avenue/Oak Street, Canal Street/Adams Street")
     st.markdown("- These stations don't need to be fully stocked with bikes in winter and late autumn to reduce logistics costs")
