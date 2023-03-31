@@ -94,8 +94,8 @@ elif page == 'Most popular stations':
 
     df1 = df.query('season == @season_filter')
     
+    # Define the total rides
     total_rides = float(df1['bike_rides_daily'].count())    
-    total1 = st.columns(1,gap = 'large')
     st.metric(label = 'Total Bike Rides', value= numerize(total_rides))
     
     # Bar chart
