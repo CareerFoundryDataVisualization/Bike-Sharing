@@ -17,7 +17,7 @@ st.set_page_config(page_title = 'Divvy Bikes Strategy Dashboard', layout='wide')
 st.title("Divvy Bikes Strategy Dashboard")
 st.sidebar.title("Aspect Selector")
 
-page = st.sidebar.selectbox('Select a page',
+page = st.sidebar.selectbox('Select an aspect of the analysis',
   ["Intro page","Most popular stations",
     "Weather component and bike usage",
     "Interactive map with aggregated bike trips", "Recommendations"])
@@ -41,8 +41,13 @@ df['season'] = [
 ######################################### DEFINE THE CHARTS #####################################################################
 if page == "Intro page":
     st.markdown("#### This dashboard aims at providing helpful insights on the expansion problems Divvy Bikes currently faces.")
-    st.markdown("Right now, Divvy bikes runs into a situation where customers complain about bikes not being available at certain times. This analysis will look at the potential reasons behind this.")
-    
+    st.markdown("Right now, Divvy bikes runs into a situation where customers complain about bikes not being available at certain times. This analysis will look at the potential reasons behind this. The dashboard is separated into 4 sections:")
+    st.markdown("- Most popular stations")
+    st.markdown("- Weather component and bike usage")
+    st.markdown("- Interactive map with aggregated bike trips")
+    st.markdown("- Recommendations")
+    st.markdown("The dropdown menu on the left 'Aspect Selector' will take you to the different aspects of the analysis our team looked at.")
+
     myImage = Image.open("Divvy_Bikes.jpg")
     #source: https://ride.divvybikes.com/blog/new-divvy-ebike
     st.image(myImage)#, caption='Enter any caption here')
