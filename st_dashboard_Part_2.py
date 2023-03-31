@@ -19,18 +19,18 @@ st.title("Divvy Bikes Strategy Dashboard")
 # Define side bar
 st.sidebar.title("Aspect Selector")
 page = st.sidebar.selectbox('Select an aspect of the analysis',
-  ["Intro page","Most popular stations",
-    "Weather component and bike usage",
+  ["Intro page","Weather component and bike usage",
+   "Most popular stations",
     "Interactive map with aggregated bike trips", "Recommendations"])
 
-# Import data
-df = pd.read_csv('reduced_data_to_plot_7.csv', index_col = 0)
+########################## Import data ###########################################################################################
 
+df = pd.read_csv('reduced_data_to_plot_7.csv', index_col = 0)
 
 ######################################### DEFINE THE PAGES #####################################################################
 
 
-# Intro page
+### Intro page
 
 if page == "Intro page":
     st.markdown("#### This dashboard aims at providing helpful insights on the expansion problems Divvy Bikes currently faces.")
@@ -45,54 +45,6 @@ if page == "Intro page":
     #source: https://ride.divvybikes.com/blog/new-divvy-ebike
     st.image(myImage)#, caption='Enter any caption here')
 
-
-# Most popular stations page
-
-
-
-    
-    
-## Create the season fiter
-
-elif page == 'Most popular stations':
-    
-    df['date'] = pd.to_datetime(df['date'], format = '%Y-%m-%d')
-    df['month'] = df['date'].dt.month
-    df['month'] = df['month'].astype('int')
-    df['season'] = [
-        "winter" if (month == 12 or 1 <= month <= 4)
-        else "spring" if (4 < month <= 5)
-        else "summer" if (6 <= month <= 9)
-        else "fall"
-        for month in df['month']
-    ]
-    
-    with st.sidebar:
-        season_filter = st.multiselect(label= 'Select the season', options=df['season'].unique(),
-    default=df['season'].unique())
-
-    df1 = df.query('season == @season_filter')    
-    total_rides = float(df1['bike_rides_daily'].sum())    
-
-    total1 = st.columns(1,gap='large')
-    st.metric(label = 'Total Bike Rides', value= numerize(total_rides))
-    
-    ## Bar chart
-
-    df['value'] = 1 
-    df_groupby_bar = df.groupby('start_station_name', as_index = False).agg({'value': 'sum'})
-    top20 = df_groupby_bar.nlargest(20, 'value')
-    fig = go.Figure(go.Bar(x = top20['start_station_name'], y = top20['value']))
-
-    fig = go.Figure(go.Bar(x = top20['start_station_name'], y = top20['value'], marker={'color':top20['value'],'colorscale': 'Blues'}))
-    fig.update_layout(
-    title = 'Top 20 most popular bike stations in Chicago',
-    xaxis_title = 'Start stations',
-    yaxis_title ='Sum of trips',
-    width = 900, height = 600
-    )
-    st.plotly_chart(fig, use_container_width=True)
-    st.markdown("From the bar chart it is clear that there are some start stations that are more popular than others - in the top 3 we can see Streeter Dr/Grand Avenue, Canal Street/St. Addams streat as well as Clinton Street/Madison Street. There is a big jump between the highest and lowest bars of the plot, indicating some clear preferences for the leading stations. This is a finding that we could cross reference with the interactive map in the last page of the dashboard.")
 
 elif page == 'Weather component and bike usage':
 
@@ -116,8 +68,53 @@ elif page == 'Weather component and bike usage':
     )
 
     st.plotly_chart(fig_2, use_container_width=True)
-    st.markdown("There is an obvious correlation between the rise and drop of temperatures and their effect on the frequency of bike trips taken daily. As temperatures plunge, so does bike usage. This insight indicates that the shortage problem may be prevalent merely in the warmer months, approximately from May to November.")
+    st.markdown("There is an obvious correlation between the rise and drop of temperatures and their relationship with the frequency of bike trips taken daily. As temperatures plunge, so does bike usage. This insight indicates that the shortage problem may be prevalent merely in the warmer months, approximately from May to October.")
 
+### Most popular stations page
+
+    # Create the season variable
+
+elif page == 'Most popular stations':
+    
+    df['date'] = pd.to_datetime(df['date'], format = '%Y-%m-%d')
+    df['month'] = df['date'].dt.month
+    df['month'] = df['month'].astype('int')
+    df['season'] = [
+        "winter" if (month == 12 or 1 <= month <= 4)
+        else "spring" if (4 < month <= 5)
+        else "summer" if (6 <= month <= 9)
+        else "fall"
+        for month in df['month']
+    ]
+    
+    # Create the filter on the side bar
+    
+    with st.sidebar:
+        season_filter = st.multiselect(label= 'Select the season', options=df['season'].unique(),
+    default=df['season'].unique())
+
+    df1 = df.query('season == @season_filter')    
+    total_rides = float(df1['bike_rides_daily'].sum())    
+
+    total1 = st.columns(1,gap='large')
+    st.metric(label = 'Total Bike Rides', value= numerize(total_rides))
+    
+    # Bar chart
+
+    df['value'] = 1 
+    df_groupby_bar = df.groupby('start_station_name', as_index = False).agg({'value': 'sum'})
+    top20 = df_groupby_bar.nlargest(20, 'value')
+    fig = go.Figure(go.Bar(x = top20['start_station_name'], y = top20['value']))
+
+    fig = go.Figure(go.Bar(x = top20['start_station_name'], y = top20['value'], marker={'color':top20['value'],'colorscale': 'Blues'}))
+    fig.update_layout(
+    title = 'Top 20 most popular bike stations in Chicago',
+    xaxis_title = 'Start stations',
+    yaxis_title ='Sum of trips',
+    width = 900, height = 600
+    )
+    st.plotly_chart(fig, use_container_width=True)
+    st.markdown("From the bar chart it is clear that there are some start stations that are more popular than others - in the top 3 we can see Streeter Drive/Grand Avenue, Canal Street/Adams Streat as well as Clinton Street/Madison Street. There is a big jump between the highest and lowest bars of the plot, indicating some clear preferences for the leading stations. This is a finding that we could cross reference with the interactive map that you can access through the side bar select box.")
 
 elif page == 'Interactive map with aggregated bike trips': 
 
@@ -136,13 +133,14 @@ elif page == 'Interactive map with aggregated bike trips':
     st.components.v1.html(html_data,height=1000)
     st.markdown("#### Using the filter on the left hand side of the map we can check whether the most popular start stations also appear in the most popular trips.")
     st.markdown("The most popular start stations are:")
-    st.markdown("Streeter Dr/Grand Avenue, Canal Street/Adams Street as well as Clinton Street/Madison Street. While having the aggregated bike trips filter enabled, we can see that even though Clinton Street/Madison Street is a popular start stations, it doesn't account for the most commonly taken trips.")
-    st.markdown("The most common routes (>2,000) are between Theater on the Lake, Streeter Dr/Grand Avenue, Millenium Park, Columbus Dr/Randolph Street, Shedd Aquarium, Michigan Avenue/Oak Street, Canal Street/Adams Street.")
+    st.markdown("Streeter Drive/Grand Avenue, Canal Street/Adams Street as well as Clinton Street/Madison Street. While having the aggregated bike trips filter enabled, we can see that even though Clinton Street/Madison Street is a popular start stations, it doesn't account for the most commonly taken trips.")
+    st.markdown("The most common routes (>2,000) are between Theater on the Lake, Streeter Dr/Grand Avenue, Millenium Park, Columbus Dr/Randolph Street, Shedd Aquarium, Michigan Avenue/Oak Street, Canal Street/Adams Street, which are predominantly located along the water.")
 
 else:
+    
     st.header("Conclusions and recommendations")
     bikes = Image.open("recs_page.png")  #source: Midjourney
     st.image(bikes)
-    st.markdown("### Our analysis has shown that Divvy Bikes needs to focus on the following points:")
+    st.markdown("### Our analysis has shown that Divvy Bikes should focus on the following objectives moving forward:")
     st.markdown("- Add more stations to the locations around the water line, such as heater on the Lake, Streeter Dr/Grand Avenue, Millenium Park, Columbus Dr/Randolph Street, Shedd Aquarium, Michigan Avenue/Oak Street, Canal Street/Adams Street")
-    st.markdown("- These stations don't need to be fully stocked with bikes in winter and late autumn to reduce logistics costs")
+    st.markdown("- Ensure that bikes are fully stocked in all these stations during the warmer months in order to meet the higher demand, but provide a lower supply in winter and late autumn to reduce logistics costs")
