@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 from streamlit_keplergl import keplergl_static
 from keplergl import KeplerGl
 from datetime import datetime as dt
-from numerize.numerize import numerize
 from PIL import Image
 
 ########################### Initial settings for the dashboard ####################################################
@@ -50,7 +49,7 @@ if page == "Intro page":
     st.image(myImage)#, caption='Enter any caption here')
 
 
-## Create the bar chart
+## Create the season fiter
 
 elif page == 'Most popular stations':
     with st.sidebar:
@@ -62,6 +61,7 @@ elif page == 'Most popular stations':
 
     total1 = st.columns(1,gap='large')
     st.metric(label = 'Total Bike Rides', value= numerize(total_rides))
+    
     ## Bar chart
 
     df['value'] = 1 
@@ -77,6 +77,7 @@ elif page == 'Most popular stations':
     width = 900, height = 600
     )
     st.plotly_chart(fig, use_container_width=True)
+    st.markdown("From the bar chart it is clear that there are some start stations that are more popular than others - in the top 3, Streeter Dr/Grand Avenue, Canal Street/St. Addams streat as well as Clinton Street/Madison Street. There is a big jump between the highest and lowest bars of the plot, indicating some ")
 
 elif page == 'Weather component and bike usage':
 
