@@ -3,3 +3,4 @@ streamlit == 1.20.0
 matplotlib == 3.7.1
 streamlit_keplergl
 numerize == 0.12
+pillow == 9.4.0
