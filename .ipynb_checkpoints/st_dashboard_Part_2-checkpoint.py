@@ -125,4 +125,6 @@ else:
     st.header("Conclusions and recommendations")
     bikes = Image.open("recs_page.png")  #source: Midjourney
     st.image(bikes)
-    st.markdown("Our analysis has shown that Divvy Bikes needs to focus on the following points: <br> - Add more stations to the locations around the water line, such as heater on the Lake, Streeter Dr/Grand Avenue, Millenium Park, Columbus Dr/Randolph Street, Shedd Aquarium, Michigan Avenue/Oak Street, Canal Street/Adams Street <br> - These stations don't need to be fully stocked with bikes in winter and late autumn to reduce logistics costs")
+    st.write("Our analysis has shown that Divvy Bikes needs to focus on the following points:")
+    st.markdown("- Add more stations to the locations around the water line, such as heater on the Lake, Streeter Dr/Grand Avenue, Millenium Park, Columbus Dr/Randolph Street, Shedd Aquarium, Michigan Avenue/Oak Street, Canal Street/Adams Street")
+    st.markdown("- These stations don't need to be fully stocked with bikes in winter and late autumn to reduce logistics costs")
