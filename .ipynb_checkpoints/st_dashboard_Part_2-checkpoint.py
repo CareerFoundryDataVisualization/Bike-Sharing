@@ -15,8 +15,6 @@ from PIL import Image
 
 st.set_page_config(page_title = 'Divvy Bikes Strategy Dashboard', layout='wide')
 st.title("Divvy Bikes Strategy Dashboard")
-st.markdown("The dashboard will help with the expansion problems Divvy currently faces")
-st.markdown("Right now, Divvy bikes runs into a situation where customers complain about bikes not being avaibale at certain times. This analysis aims to look at the potential reasons behind this.")
 st.sidebar.title("Aspect Selector")
 # st.sidebar.markdown("Select an aspect of the analysis:")
 
@@ -43,26 +41,27 @@ df['season'] = [
 # st.dataframe(df1)
 ######################################### DEFINE THE CHARTS #####################################################################
 if page == "Intro page":
-    myImage = Image.open("Bike-Sharing\Divvy_Bikes.jpg")
-    myImage.show()    
+    st.markdown("The dashboard will help with the expansion problems Divvy currently faces")
+    st.markdown("Right now, Divvy bikes runs into a situation where customers complain about bikes not being avaibale at certain times. This analysis aims to look at the potential reasons behind this.")
+    
+    myImage = Image.open("Divvy_Bikes.jpg")
+    #source: https://ride.divvybikes.com/blog/new-divvy-ebike
+    #myImage.show()    
     st.image(myImage)#, caption='Enter any caption here')
 
 
 ## Create the bar chart
 
-with st.sidebar:
-    season_filter = st.multiselect(label= 'Select the season',
-                                options=df['season'].unique(),
-                                default=df['season'].unique())
+elif page == 'Most popular stations':
+    with st.sidebar:
+        season_filter = st.multiselect(label= 'Select the season', options=df['season'].unique(),
+    default=df['season'].unique())
 
-df1 = df.query('season == @season_filter')    
-total_rides = float(df1['bike_rides_daily'].sum())    
-               
-total1 = st.columns(1,gap='large')
-st.metric(label = 'Total Bike Rides', value= numerize(total_rides))
+    df1 = df.query('season == @season_filter')    
+    total_rides = float(df1['bike_rides_daily'].sum())    
 
-if page == 'Most popular stations':
-
+    total1 = st.columns(1,gap='large')
+    st.metric(label = 'Total Bike Rides', value= numerize(total_rides))
     ## Bar chart
 
     df['value'] = 1 
@@ -97,7 +96,7 @@ elif page == 'Weather component and bike usage':
 
     fig_2.update_layout(
     title = 'Daily bike trips and temperatures in 2018',
-    height = 600
+    height = 400
     )
 
     st.plotly_chart(fig_2, use_container_width=True)
