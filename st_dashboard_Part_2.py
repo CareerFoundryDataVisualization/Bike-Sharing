@@ -16,7 +16,6 @@ from PIL import Image
 st.set_page_config(page_title = 'Divvy Bikes Strategy Dashboard', layout='wide')
 st.title("Divvy Bikes Strategy Dashboard")
 st.sidebar.title("Aspect Selector")
-# st.sidebar.markdown("Select an aspect of the analysis:")
 
 page = st.sidebar.selectbox('Select a page',
   ["Intro page","Most popular stations",
@@ -41,8 +40,8 @@ df['season'] = [
 # st.dataframe(df1)
 ######################################### DEFINE THE CHARTS #####################################################################
 if page == "Intro page":
-    st.markdown("The dashboard will help with the expansion problems Divvy currently faces")
-    st.markdown("Right now, Divvy bikes runs into a situation where customers complain about bikes not being avaibale at certain times. This analysis aims to look at the potential reasons behind this.")
+    st.markdown("#### This dashboard aims at providing helpful insights on the expansion problems Divvy Bikes currently faces.")
+    st.markdown("Right now, Divvy bikes runs into a situation where customers complain about bikes not being available at certain times. This analysis will look at the potential reasons behind this.")
     
     myImage = Image.open("Divvy_Bikes.jpg")
     #source: https://ride.divvybikes.com/blog/new-divvy-ebike
@@ -121,7 +120,8 @@ elif page == 'Interactive map with aggregated bike trips':
     st.components.v1.html(html_data,height=1000)
     st.markdown("#### Using the filter on the left hand side of the map we can check whether the most popular start stations also appear in the most popular trips.")
     st.markdown("The most popular start stations are:")
-    st.markdown("Streeter Dr/Grand Avenue, Canal Street/Adams Street as well as Clinton Street/Madison Street. While having the aggregated bike trips filter enabled, we can see that even though Clinton Street/Madison Street is a popular start stations, it doesn't account for the most commonly taken trips. The most common routes (>2,000) are between Theater on the Lake, Streeter Dr/Grand Avenue, Millenium Park, Columbus Dr/Randolph Street, Shedd Aquarium, Michigan Avenue/Oak Street, Canal Street/Adams Street.")
+    st.markdown("Streeter Dr/Grand Avenue, Canal Street/Adams Street as well as Clinton Street/Madison Street. While having the aggregated bike trips filter enabled, we can see that even though Clinton Street/Madison Street is a popular start stations, it doesn't account for the most commonly taken trips.")
+    st.markdown("The most common routes (>2,000) are between Theater on the Lake, Streeter Dr/Grand Avenue, Millenium Park, Columbus Dr/Randolph Street, Shedd Aquarium, Michigan Avenue/Oak Street, Canal Street/Adams Street.")
 
 else:
     st.header("Conclusions and recommendations")
