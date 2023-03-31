@@ -21,7 +21,7 @@ st.sidebar.title("Aspect Selector")
 page = st.sidebar.selectbox('Select a page',
   ["Intro page","Most popular stations",
     "Weather component and bike usage",
-    "Interactive map"])
+    "Interactive map", "Recommendations"])
 
 
 df = pd.read_csv('reduced_data_to_plot_7.csv', index_col = 0)
@@ -46,7 +46,6 @@ if page == "Intro page":
     
     myImage = Image.open("Divvy_Bikes.jpg")
     #source: https://ride.divvybikes.com/blog/new-divvy-ebike
-    #myImage.show()    
     st.image(myImage)#, caption='Enter any caption here')
 
 
@@ -78,7 +77,7 @@ elif page == 'Most popular stations':
     width = 900, height = 600
     )
     st.plotly_chart(fig, use_container_width=True)
-    st.markdown("From the bar chart it is clear that there are some start stations that are more popular than others - in the top 3, Streeter Dr/Grand Avenue, Canal Street/St. Addams streat as well as Clinton Street/Madison Street. There is a big jump between the highest and lowest bars of the plot, indicating some ")
+    st.markdown("From the bar chart it is clear that there are some start stations that are more popular than others - in the top 3 we can see Streeter Dr/Grand Avenue, Canal Street/St. Addams streat as well as Clinton Street/Madison Street. There is a big jump between the highest and lowest bars of the plot, indicating some clear preferences for the leading stations. This is a finding that we could cross reference with the interactive map in the last page of the dashboard.")
 
 elif page == 'Weather component and bike usage':
 
@@ -102,9 +101,10 @@ elif page == 'Weather component and bike usage':
     )
 
     st.plotly_chart(fig_2, use_container_width=True)
+    st.markdown("There is an obvious correlation between the rise and drop of temperatures and their effect on the frequency of bike trips taken daily. As temperatures plunge, so does bike usage. This insight indicates that the shortage problem may be prevalent merely in the warmer months, approximately from May to November.")
 
 
-else: 
+elif: 
 
     ### Create the map ###
 
@@ -119,3 +119,10 @@ else:
     ## Show in webpage
     st.header("Aggregated Bike Trips in Chicago")
     st.components.v1.html(html_data,height=1000)
+    st.markdown("Using the filter on the left hand side of the map we can check whether the most popular start stations also appear in the most popular trips. The most popular start stations are: Streeter Dr/Grand Avenue, Canal Street/Adams Street as well as Clinton Street/Madison Street. While having the aggregated bike trips filter enabled, we can see that even though Clinton Street/Madison Street is a popular start stations, it doesn't account for the most commonly taken trips. The most common routes (>2,000) are between Theater on the Lake, Streeter Dr/Grand Avenue, Millenium Park, Columbus Dr/Randolph Street, Shedd Aquarium, Michigan Avenue/Oak Street, Canal Street/Adams Street.")
+
+else:
+    st.header("Conclusions and recommendations")
+    bikes = Image.open("recs_page.jpg")  #source: Midjourney
+    st.image(bikes)
+    st.markdown("Our analysis has shown that Divvy Bikes needs to focus on the following points: <br> - Add more stations to the locations around the water line, such as heater on the Lake, Streeter Dr/Grand Avenue, Millenium Park, Columbus Dr/Randolph Street, Shedd Aquarium, Michigan Avenue/Oak Street, Canal Street/Adams Street <br> - These stations don't need to be fully stocked with bikes in winter and late autumn to reduce logistics costs")
