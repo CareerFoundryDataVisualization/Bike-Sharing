@@ -21,17 +21,10 @@ st.markdown("Right now, Divvy bikes runs into a situation where customers compla
 
 ########################## Import data ###########################################################################################
 
-df = pd.read_csv('reduced_data_to_plot_7.csv', index_col = 0)
-
+df = pd.read_csv('reduced_data_to_plot.csv', index_col = 0)
+top20 = pd.read_csv('top20.csv', index_col = 0)
 
 # ######################################### DEFINE THE CHARTS #####################################################################
-
-
-## Groupby
-
-df['value'] = 1 
-df_groupby_bar = df.groupby('start_station_name', as_index=False).agg({'value': 'sum'})
-top20 = df_groupby_bar.nlargest(20, 'value')
 
 ## Bar chart
 

@@ -26,6 +26,7 @@ page = st.sidebar.selectbox('Select an aspect of the analysis',
 ########################## Import data ###########################################################################################
 
 df = pd.read_csv('reduced_data_to_plot_7.csv', index_col = 0)
+top20 = pd.read_csv('top20.csv', index_col = 0)
 
 ######################################### DEFINE THE PAGES #####################################################################
 
@@ -75,17 +76,6 @@ elif page == 'Weather component and bike usage':
 
 elif page == 'Most popular stations':
     
-    df['date'] = pd.to_datetime(df['date'], format = '%Y-%m-%d')
-    df['month'] = df['date'].dt.month
-    df['month'] = df['month'].astype('int')
-    df['season'] = [
-        "winter" if (month == 12 or 1 <= month <= 4)
-        else "spring" if (4 < month <= 5)
-        else "summer" if (6 <= month <= 9)
-        else "fall"
-        for month in df['month']
-    ]
-  
     # Create the filter on the side bar
     
     with st.sidebar:
