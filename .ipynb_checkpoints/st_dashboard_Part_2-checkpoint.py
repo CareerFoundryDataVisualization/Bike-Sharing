@@ -26,6 +26,7 @@ page = st.sidebar.selectbox('Select an aspect of the analysis',
 ########################## Import data ###########################################################################################
 
 df = pd.read_csv('reduced_data_to_plot_7.csv', index_col = 0)
+top20 = pd.read_csv('top20.csv', index_col = 0)
 
 ######################################### DEFINE THE PAGES #####################################################################
 
@@ -75,17 +76,6 @@ elif page == 'Weather component and bike usage':
 
 elif page == 'Most popular stations':
     
-    df['date'] = pd.to_datetime(df['date'], format = '%Y-%m-%d')
-    df['month'] = df['date'].dt.month
-    df['month'] = df['month'].astype('int')
-    df['season'] = [
-        "winter" if (month == 12 or 1 <= month <= 4)
-        else "spring" if (4 < month <= 5)
-        else "summer" if (6 <= month <= 9)
-        else "fall"
-        for month in df['month']
-    ]
-  
     # Create the filter on the side bar
     
     with st.sidebar:
@@ -100,11 +90,6 @@ elif page == 'Most popular stations':
     
     # Bar chart
 
-    df1['value'] = 1 
-    df_groupby_bar = df1.groupby('start_station_name', as_index = False).agg({'value': 'sum'})
-    top20 = df_groupby_bar.nlargest(20, 'value')
-    fig = go.Figure(go.Bar(x = top20['start_station_name'], y = top20['value']))
-
     fig = go.Figure(go.Bar(x = top20['start_station_name'], y = top20['value'], marker={'color':top20['value'],'colorscale': 'Blues'}))
     fig.update_layout(
     title = 'Top 20 most popular bike stations in Chicago',
@@ -112,8 +97,6 @@ elif page == 'Most popular stations':
     yaxis_title ='Sum of trips',
     width = 900, height = 600
     )
-    
-    
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("From the bar chart it is clear that there are some start stations that are more popular than others - in the top 3 we can see Streeter Drive/Grand Avenue, Canal Street/Adams Streat as well as Clinton Street/Madison Street. There is a big jump between the highest and lowest bars of the plot, indicating some clear preferences for the leading stations. This is a finding that we could cross reference with the interactive map that you can access through the side bar select box.")
 

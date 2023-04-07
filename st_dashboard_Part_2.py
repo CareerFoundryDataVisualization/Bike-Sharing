@@ -90,11 +90,6 @@ elif page == 'Most popular stations':
     
     # Bar chart
 
-    df1['value'] = 1 
-    df_groupby_bar = df1.groupby('start_station_name', as_index = False).agg({'value': 'sum'})
-    top20 = df_groupby_bar.nlargest(20, 'value')
-    fig = go.Figure(go.Bar(x = top20['start_station_name'], y = top20['value']))
-
     fig = go.Figure(go.Bar(x = top20['start_station_name'], y = top20['value'], marker={'color':top20['value'],'colorscale': 'Blues'}))
     fig.update_layout(
     title = 'Top 20 most popular bike stations in Chicago',
