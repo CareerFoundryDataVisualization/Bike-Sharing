@@ -42,7 +42,7 @@ if page == "Intro page":
     st.markdown("- Recommendations")
     st.markdown("The dropdown menu on the left 'Aspect Selector' will take you to the different aspects of the analysis our team looked at.")
 
-    myImage = Image.open("bike-sharing.jpg") #source: https://ride.divvybikes.com/blog/new-divvy-ebike
+    myImage = Image.open("bike-sharing.jpg.jpg") #source: https://ride.divvybikes.com/blog/new-divvy-ebike
     st.image(myImage)
 
 
